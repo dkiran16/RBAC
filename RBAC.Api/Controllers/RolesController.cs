@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RBAC.Api.Models.Dto;
 using RBAC.Api.Services;
@@ -7,6 +8,7 @@ namespace RBAC.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admin")]
     public class RolesController(IRoleService roleService) : ControllerBase
     {
         [HttpGet("GetRoles")]

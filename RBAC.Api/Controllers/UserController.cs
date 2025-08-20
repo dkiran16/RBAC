@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RBAC.Api.Models.Dto;
 using RBAC.Api.Services;
@@ -19,6 +20,7 @@ namespace RBAC.Api.Controllers
         }
 
         [HttpPost("AddUser")]
+        [Authorize(Roles = "Admin,Editor")]
         public IActionResult AddUser([FromBody] AddUserDto dto)
         {
             var hashPassword = HashPassword(dto.Password);
@@ -35,14 +37,15 @@ namespace RBAC.Api.Controllers
             return Convert.ToBase64String(bytes);
         }
 
-        [HttpPut]
+        [HttpPut(nameof(UpdateUser))]
+        [Authorize(Roles = "Admin,Editor")]
         public IActionResult UpdateUser([FromBody] GetUserDto user)
         {
             var result = userService.UpdateUser(user); 
             return Ok("User updated successfully.");
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete( $"{nameof(DeleteUser)}/" + "{id}")]
         public IActionResult DeleteUser(int id)
         {
             var result = userService.DeleteUser(id);
