@@ -11,8 +11,8 @@ using RBAC.Api.Data;
 namespace RBAC.Api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250815072908_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250820140053_RBACDb")]
+    partial class RBACDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
